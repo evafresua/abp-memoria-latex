@@ -1,0 +1,33 @@
+@startuml
+skinparam responseMessageBelowArrow true
+
+actor "Usuario Registrado" as U
+participant "App / Frontend" as F
+participant "Backend API" as B
+participant "Pasarela de Pago" as P
+participant "Base de Datos" as BD
+
+U -> F ++ : procederAlPago()
+
+F -> B ++ : POST /api/checkout(datosEnvio)
+
+B -> BD ++ : validarDisponibilidadYPrecios(carrito)
+BD -->> B -- : validacionOK
+
+B -> P ++ : crearIntencionPago(total)
+P -->> B -- : clientSecret
+
+B -->> F -- : clientSecret
+
+F -> P ++ : procesarPago(datosTarjeta, clientSecret)
+P -->> F -- : estadoPago
+
+F -> B ++ : POST /api/orden/confirmar(estadoPago)
+
+B -> BD ++ : registrarOrdenYVaciarCarrito()
+BD -->> B -- : ordenConfirmada
+
+B -->> F -- : reciboOrden
+
+F -->> U -- : mostrarConfirmacion(reciboOrden)
+@enduml

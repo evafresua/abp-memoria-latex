@@ -1,0 +1,14 @@
+---
+config:
+  theme: redux
+---
+flowchart TB
+    DispositivoCliente["&lt;&gt; Dispositivo Usuario"] -. HTTPS (TLS) .-> ServidorApp["&lt;&gt; Servidor API REST"]
+    ServidorApp -. HTTP / gRPC .-> ServidorIA["&lt;&gt; Servidor Recomendador"]
+    ServidorApp -. TCP/IP (5432) .-> ServidorBD["&lt;&gt; Servidor de Base de Datos"]
+    ServidorIA -. TCP/IP (5432) .-> ServidorBD
+    ServidorApp -. HTTPS (TLS) .-> PasarelaPago["&lt;&gt; Pasarela de Pagos (Stripe)"]
+    artifactWebApp["&lt;&gt; App Web / UI"]
+    APIContainer["&lt;&gt; Contenedor API (Node.js/Java)"]
+    MLContainer["&lt;&gt; Contenedor IA (Python/FastAPI)"]
+    RDBMS["&lt;&gt; PostgreSQL DB"]

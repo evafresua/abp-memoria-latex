@@ -1,0 +1,28 @@
+---
+config:
+  theme: redux
+---
+flowchart LR
+    UR["Actor: Usuario<br/>Registrado"]
+    U["Actor: Usuario<br/>No Registrado"]
+    E["Actor: Empresa<br/>(Proveedor)"]
+    UR -->|Generalización| U
+    subgraph Sistema ["Plataforma de Recomendación y Venta de Café"]
+        direction TB
+        
+        CU01(["CU01:<br/>Registrarse y<br/>Cubrir Encuesta"])
+        CU03(["CU03: Filtrar y<br/>Buscar Productos"])
+        CU02(["CU02: Consultar<br/>Recomendaciones<br/>Personalizadas"])
+        CU04(["CU04: Efectuar<br/>Transacción de<br/>Compra"])
+        CU05(["CU05: Gestionar<br/>Catálogo de<br/>Productos"])
+        CU06(["CU06: Iniciar<br/>Sesión"])
+    end
+    U --- CU01
+    U --- CU03
+    UR --- CU02
+    UR --- CU04
+    E --- CU05
+    CU01 -.-|&lt;&lt;include&gt;&gt;| CU06
+    CU02 -.-|&lt;&lt;include&gt;&gt;| CU06
+    CU04 -.-|&lt;&lt;include&gt;&gt;| CU06
+    CU05 -.-|&lt;&lt;include&gt;&gt;| CU06

@@ -1,0 +1,33 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam linetype polyline
+
+actor "Usuario No Registrado" as UN
+actor "//Usuario//\n{abstract}" as U
+actor "Usuario Registrado" as UR
+actor "Empresa (Proveedor)" as E
+
+rectangle "Plataforma de Recomendación y Venta de Café" {
+  usecase "CU01: Registrarse y Cubrir Encuesta" as CU01
+  usecase "CU03: Filtrar y Buscar Productos" as CU03
+  usecase "CU02: Consultar Recomendaciones Personalizadas" as CU02
+  usecase "CU04: Efectuar Transacción de Compra" as CU04
+  usecase "CU05: Gestionar Catálogo de Productos" as CU05
+  usecase "CU06: Iniciar Sesión" as CU06
+}
+
+UN -[norank]-|> U
+UR -[norank]-|> U
+
+UN -- CU01
+U -- CU03
+UR -- CU02
+UR -- CU04
+CU05 -- E
+
+CU01 ..> CU06 : <<include>>
+CU02 ..> CU06 : <<include>>
+CU04 ..> CU06 : <<include>>
+CU05 ..> CU06 : <<include>>
+@enduml

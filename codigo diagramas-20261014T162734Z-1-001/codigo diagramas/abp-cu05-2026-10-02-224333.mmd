@@ -1,0 +1,19 @@
+sequenceDiagram
+    actor E as Empresa
+    participant F as App / Frontend
+    participant B as Backend API
+    participant BD as Base de Datos
+
+    E->>F: Rellena formulario de "Nuevo Café" y guarda
+    F->>B: POST /api/productos (JSON producto)
+    B->>B: Validar formato y campos obligatorios
+    
+    alt Datos Inválidos
+        B-->>F: 400 Bad Request (Detalle de errores)
+        F-->>E: Resalta campos en rojo
+    else Datos Válidos
+        B->>BD: INSERT Producto (origen_datos=ID_Empresa, activo=true)
+        BD-->>B: Confirmación (ID de nuevo Producto)
+        B-->>F: 201 Created
+        F-->>E: Mensaje de éxito y actualización visual de "Mi Catálogo"
+    end

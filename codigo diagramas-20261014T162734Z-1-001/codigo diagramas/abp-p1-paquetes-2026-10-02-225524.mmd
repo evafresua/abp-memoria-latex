@@ -1,0 +1,51 @@
+classDiagram
+    %% Estructura de Paquetes UML
+    class UI_Presentacion {
+        <<package>>
+        +VistasUsuario
+        +PanelEmpresa
+        +ComponentesCompartidos
+    }
+
+    class Modulo_Autenticacion {
+        <<package>>
+        +GestorSesion
+        +ValidadorCredenciales
+    }
+
+    class Modulo_Catalogo {
+        <<package>>
+        +GestorProductos
+        +ImportadorKaggle
+        +Buscador
+    }
+
+    class Modulo_Recomendacion {
+        <<package>>
+        +AnalizadorPerfil
+        +CalculadorSimilitud
+    }
+
+    class Modulo_Transacciones {
+        <<package>>
+        +GestorCarrito
+        +ProcesadorPagos
+        +GestorOrdenes
+    }
+
+    class Core_Datos {
+        <<package>>
+        +Repositorios
+        +Entidades
+    }
+
+    %% Relaciones de Dependencia UML (<<use>> / <<access>>)
+    UI_Presentacion ..> Modulo_Autenticacion : <<use>>
+    UI_Presentacion ..> Modulo_Catalogo : <<use>>
+    UI_Presentacion ..> Modulo_Recomendacion : <<use>>
+    UI_Presentacion ..> Modulo_Transacciones : <<use>>
+
+    Modulo_Autenticacion ..> Core_Datos : <<access>>
+    Modulo_Catalogo ..> Core_Datos : <<access>>
+    Modulo_Recomendacion ..> Core_Datos : <<access>>
+    Modulo_Transacciones ..> Core_Datos : <<access>>

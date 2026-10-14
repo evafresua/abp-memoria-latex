@@ -1,0 +1,58 @@
+@startuml
+title CU01: Registrarse en la aplicación y cubrir encuesta
+skinparam responseMessageBelowArrow true
+
+actor "Usuario No\nRegistrado" as A
+boundary ":Interfaz" as UI
+control ":GestorRegistro" as G
+participant ":Encuesta" as E
+participant ":Usuario" as U
+participant ":Perfil" as P
+participant ":Respuesta" as R
+
+== Pasos 1-2: solicitar el formulario ==
+A -> UI : seleccionarRegistrarse()
+UI -->> A : mostrarFormulario(nombre, correo, contrasena)
+
+== Pasos 3-5: validar credenciales y presentar la encuesta ==
+A -> UI : continuar(nombre, correo, contrasena)
+UI -> G : registrarse(nombre, correo, contrasena)
+G -> G : existeCuenta(correo)
+break credenciales duplicadas (4a)
+  G -->> UI : error(duplicadas)
+  UI -->> A : mostrarError(), pedirDatosDistintos()
+  note over A, UI : Retoma el paso 3
+end
+G -> E : obtenerPreguntas()
+E -->> G : preguntas
+G -->> UI : preguntas
+UI -->> A : mostrarEncuesta(preguntas)
+
+== Pasos 6-7: responder y generar el perfil ==
+A -> UI : finalizarRegistro(respuestas)
+UI -> G : cubrirEncuesta(respuestas)
+G -> G : verificarObligatorias(respuestas)
+break encuesta incompleta (6a, RN02)
+  G -->> UI : error(preguntasPendientes)
+  UI -->> A : señalarCamposRequeridos()
+  note over A, UI : Retoma el paso 6
+end
+create U
+G -> U : «create» (nombre, correo, contrasena)
+G -> U : generarPerfil(respuestas)
+create P
+U -> P : «create» ()
+loop por cada respuesta
+  create R
+  P -> R : «create» (valorSeleccionado, pregunta)
+end
+U -->> G : perfil
+note over U, P : Paso 7: credenciales y perfil quedan almacenados\n(la persistencia no aparece en el diagrama de clases)
+
+== Paso 8: confirmar e iniciar sesión ==
+G -> U : iniciarSesion()
+note right of U : CU06 («include»)
+U -->> G : true
+G -->> UI : registroConfirmado()
+UI -->> A : mostrarConfirmacion()
+@enduml

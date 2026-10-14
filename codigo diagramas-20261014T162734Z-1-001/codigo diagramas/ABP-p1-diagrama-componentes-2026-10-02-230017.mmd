@@ -1,0 +1,35 @@
+---
+config:
+  theme: redux
+---
+graph TD
+    subgraph Presentacion ["Capa de Presentación"]
+        App[App / Web UI]
+    end
+    subgraph Negocio ["Capa de Negocio"]
+        Auth[Servicio de Autenticación]
+        Catalog[Servicio de Catálogo]
+        RecEngine[Motor de Recomendación]
+        Order[Servicio de Transacciones]
+        Auth --> IAuth["API Auth"]
+        Catalog --> ICat["API Catálogo"]
+        RecEngine --> IRec["API Recomendación"]
+        Order --> IOrd["API Órdenes"]
+    end
+    subgraph Persistencia ["Capa de Persistencia"]
+        DB["Base de Datos SQL"]
+    end
+    subgraph Externos ["Sistemas Externos"]
+        Stripe[Pasarela de Pago]
+        Kaggle[Dataset Kaggle]
+    end
+    App -.->|"usa"| IAuth
+    App -.->|"usa"| ICat
+    App -.->|"usa"| IRec
+    App -.->|"usa"| IOrd
+    Auth --> DB
+    Catalog --> DB
+    RecEngine --> DB
+    Order --> DB
+    Order -.->|"integra"| Stripe
+    Catalog -.->|"importa datos"| Kaggle

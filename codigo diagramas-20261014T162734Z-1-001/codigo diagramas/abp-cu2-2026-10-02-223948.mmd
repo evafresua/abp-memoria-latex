@@ -1,0 +1,30 @@
+sequenceDiagram
+    actor U as Usuario Registrado
+    participant F as App / Frontend
+    participant B as Backend API
+    participant M as Motor de Recomendacion
+    participant BD as Base de Datos
+
+    U->>+F: accederPantallaInicio()
+    
+    F->>+B: GET /api/recomendaciones(tokenSesion)
+    
+    B->>+BD: consultarPerfil(idUsuario)
+    BD-->>-B: perfil y respuestas
+    
+    B->>+BD: consultarHistorialOrdenes(idUsuario)
+    BD-->>-B: historialCompras
+    
+    B->>+M: generarSugerencias(perfil, historial)
+    
+    M->>+BD: extraerCatalogoActivo()
+    BD-->>-M: listaProductosDisponibles
+    
+    %% Llamada reflexiva (self-message)
+    M->>M: calcularSimilitudes(listaProductos, pesos)
+    
+    M-->>-B: topNProductos
+    
+    B-->>-F: recomendacionesJSON
+    
+    F-->>-U: mostrarCarrusel(recomendacionesJSON)

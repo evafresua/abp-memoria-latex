@@ -1,0 +1,29 @@
+@startuml
+title CU03: Filtrar y buscar productos en el catálogo
+skinparam responseMessageBelowArrow true
+
+actor "Usuario" as U
+participant "App / Frontend" as F
+participant "Backend API" as B
+participant "Base de Datos" as BD
+
+opt ingresa un término
+  U -> F ++ : ingresarTermino(termino)
+end
+opt selecciona filtro por origen
+  U -> F : seleccionarOrigen(origenGeografico)
+end
+U -> F : confirmarBusqueda()
+
+F -> B ++ : GET /api/productos(termino, origenGeografico)
+B -> B : validarParametros(termino, origenGeografico)
+B -> BD ++ : buscarProductos(termino, origenGeografico)
+note right of BD : Coincidencia en descripcion,\nnotasCata u origenGeografico\n(solo productos con activo = true)
+BD -->> B -- : productos
+
+  B -->> F : productos
+  F -->> U : mostrarProductos(productos)
+
+deactivate B
+deactivate F
+@enduml

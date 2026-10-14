@@ -1,0 +1,33 @@
+@startuml
+skinparam responseMessageBelowArrow true
+
+actor "Usuario Registrado" as U
+participant "App / Frontend" as F
+participant "Backend API" as B
+participant "Motor de Recomendacion" as M
+participant "Base de Datos" as BD
+
+U -> F ++ : accederPantallaInicio()
+
+F -> B ++ : GET /api/recomendaciones(tokenSesion)
+
+B -> BD ++ : consultarPerfil(idUsuario)
+BD -->> B -- : perfil y respuestas
+
+B -> BD ++ : consultarHistorialOrdenes(idUsuario)
+BD -->> B -- : historialCompras
+
+B -> M ++ : generarSugerencias(perfil, historial)
+
+M -> BD ++ : extraerCatalogoActivo()
+BD -->> M -- : listaProductosDisponibles
+
+' Llamada reflexiva (self-message)
+M -> M : calcularSimilitudes(listaProductos, pesos)
+
+M -->> B -- : topNProductos
+
+B -->> F -- : recomendacionesJSON
+
+F -->> U -- : mostrarCarrusel(recomendacionesJSON)
+@enduml

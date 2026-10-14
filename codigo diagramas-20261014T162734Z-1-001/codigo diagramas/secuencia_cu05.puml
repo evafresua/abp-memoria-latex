@@ -1,0 +1,17 @@
+@startuml
+skinparam responseMessageBelowArrow true
+
+actor "Empresa" as E
+participant "App / Frontend" as F
+participant "Backend API" as B
+participant "Base de Datos" as BD
+
+E -> F : Rellena formulario de "Nuevo Café" y guarda
+F -> B : POST /api/productos (JSON producto)
+B -> B : Validar formato y campos obligatorios
+
+B -> BD : INSERT Producto (origen_datos=ID_Empresa, activo=true)
+BD -->> B : Confirmación (ID de nuevo Producto)
+B -->> F : 201 Created
+F -->> E : Mensaje de éxito y actualización visual de "Mi Catálogo"
+@enduml

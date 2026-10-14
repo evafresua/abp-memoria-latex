@@ -1,0 +1,30 @@
+sequenceDiagram
+    actor U as Usuario Registrado
+    participant F as App / Frontend
+    participant B as Backend API
+    participant P as Pasarela de Pago
+    participant BD as Base de Datos
+
+    U->>+F: procederAlPago()
+    
+    F->>+B: POST /api/checkout(datosEnvio)
+    
+    B->>+BD: validarDisponibilidadYPrecios(carrito)
+    BD-->>-B: validacionOK
+    
+    B->>+P: crearIntencionPago(total)
+    P-->>-B: clientSecret
+    
+    B-->>-F: clientSecret
+    
+    F->>+P: procesarPago(datosTarjeta, clientSecret)
+    P-->>-F: estadoPago
+    
+    F->>+B: POST /api/orden/confirmar(estadoPago)
+    
+    B->>+BD: registrarOrdenYVaciarCarrito()
+    BD-->>-B: ordenConfirmada
+    
+    B-->>-F: reciboOrden
+    
+    F-->>-U: mostrarConfirmacion(reciboOrden)

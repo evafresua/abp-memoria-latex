@@ -1,0 +1,29 @@
+---
+config:
+  theme: redux
+---
+graph LR
+    U["Actor: Usuario No Registrado"]
+    UR["Actor: Usuario Registrado"]
+    E["Actor: Empresa (Proveedor)"]
+    subgraph Sistema ["Plataforma de Recomendación y Venta de Café"]
+        direction TB
+        CU01(["CU01: Registrarse y Cubrir Encuesta"])
+        CU02(["CU02: Consultar Recomendaciones Personalizadas"])
+        CU03(["CU03: Filtrar y Buscar Productos"])
+        CU04(["CU04: Efectuar Transacción de Compra"])
+        CU05(["CU05: Gestionar Catálogo de Productos"])
+        CU06(["CU06: Iniciar Sesión"])
+    end
+    UR -- Generalización --> U
+    U --- CU01
+    U --- CU03
+    
+    UR --- CU02
+    UR --- CU04
+    
+    E --- CU05
+    CU01 -. "<<include>>" .-> CU06
+    CU02 -. "<<include>>" .-> CU06
+    CU04 -. "<<include>>" .-> CU06
+    CU05 -. "<<include>>" .-> CU06

@@ -1,0 +1,53 @@
+flowchart TD
+    %% Capa de Presentación
+    subgraph presentation["Capa de Presentación"]
+        App[App / Web UI]
+    end
+
+    %% Capa de Negocio (Backend)
+    subgraph business["Capa de Negocio"]
+        Auth[Servicio de Autenticación]
+        Catalog[Servicio de Catálogo]
+        RecEngine[Motor de Recomendación]
+        Order[Servicio de Transacciones]
+
+        %% Interfaces provistas por los servicios backend
+        IAuth["API Auth"]
+        ICat["API Catálogo"]
+        IRec["API Recomendación"]
+        IOrd["API Órdenes"]
+
+        Auth --- IAuth
+        Catalog --- ICat
+        RecEngine --- IRec
+        Order --- IOrd
+    end
+
+    %% Capa de Datos
+    subgraph persistence["Capa de Persistencia"]
+        DB["Base de Datos SQL"]
+    end
+
+    %% Sistemas Externos
+    subgraph external["Sistemas Externos"]
+        Stripe[Pasarela de Pago]
+        Kaggle[Dataset Kaggle]
+    end
+
+    %% --- RELACIONES Y DEPENDENCIAS ---
+
+    %% Consumo de interfaces desde el Frontend
+    App -.->|usa| IAuth
+    App -.->|usa| ICat
+    App -.->|usa| IRec
+    App -.->|usa| IOrd
+
+    %% Persistencia de Datos
+    Auth -.-> DB
+    Catalog -.-> DB
+    RecEngine -.-> DB
+    Order -.-> DB
+
+    %% Integraciones Externas
+    Order -.->|integra| Stripe
+    Catalog -.->|importa datos| Kaggle
