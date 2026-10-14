@@ -1,0 +1,37 @@
+\chapter{Dominio y dataset}
+
+\section{Dominio o temática elegida}
+
+Nuestro proyecto consiste en un sistema de recomendación basado en contenidos que permite recomendar al usuario el grano de café que se adapte mejor a sus necesidades (situación económica y necesidades generales).
+
+Este sistema analizará un texto de entrada para determinar qué café se ajusta al precio estimado que el usuario puede permitirse y a sus compras pasadas, con el fin de recomendar el mejor grano de café.
+
+Hemos elegido este dominio dado que dentro del ámbito universitario es sumamente importante el café debido a su alto consumo por parte tanto de estudiantes como de profesores, alcanzando un amplio número de clientes potenciales.
+
+\subsection{Exclusiones del dominio}
+
+El sistema será exclusivamente para recomendar y vender café. Serán las empresas interesadas en vender sus granos las encargadas de dar de alta y baja sus cafés, así como del transporte y almacenamiento del mismo.
+
+No se contempla que el usuario pueda reseñar el producto una vez recibido.
+
+\section{Dataset candidato: Coffee Reviews Dataset}
+
+Para fundamentar nuestro modelo de recomendación hemos utilizado un dataset de la página web de \href{https://www.kaggle.com/search}{Kaggle}, concretamente \emph{Coffee Reviews Dataset} \cite{coffee-dataset}. Este dataset recoge los datos de múltiples tipos de granos de café con sus respectivos orígenes, tipos y reseñas descriptivas sobre sus notas, que permiten hacer clasificaciones para su posterior recomendación al usuario.
+
+Debido a esto, el motor de recomendación puede comparar el perfil de los productos con las preferencias e historial expresado por el usuario de forma sencilla, calculando distancias de similitud vectorial y generando recomendaciones personalizadas y precisas sin depender de mucha interacción previa.
+
+\subsection*{Atributos del dataset}
+\begin{enumerate}
+  \item \texttt{name}: nombre del grano de café o producto.
+  \item \texttt{roaster}: nombre del tostadero de café.
+  \item \texttt{roast}: tipo de tostado (ligero, medio-ligero, medio, medio-oscuro u oscuro).
+  \item \texttt{loc\_country}: localización del tostadero de los granos de café.
+  \item \texttt{origin\_1}: origen de los granos de café.
+  \item \texttt{origin\_2}: segundo origen de los granos de café, en caso de que exista más de uno.
+  \item \texttt{100g\_USD}: precio por 100 g de grano de café en dólares estadounidenses.
+  \item \texttt{rating}: nota del café.
+  \item \texttt{review\_date}: fecha de realización de la reseña.
+  \item \texttt{desc\_1}: texto de la reseña número 1.
+  \item \texttt{desc\_2}: texto de la reseña número 2.
+  \item \texttt{desc\_3}: texto de la reseña número 3.
+\end{enumerate}

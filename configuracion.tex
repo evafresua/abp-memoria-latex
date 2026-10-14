@@ -1,0 +1,93 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\IfFileExists{babel.sty}{%
+  \usepackage[spanish]{babel}%
+}{%
+  \PackageWarningNoLine{configuracion}{babel.sty no está instalado; se omite babel}%
+}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{xurl}
+\usepackage{hyperref}
+
+\definecolor{KafeikNavy}{rgb}{0.06,0.09,0.16}
+\definecolor{KafeikAmber}{rgb}{0.85,0.47,0.02}
+\definecolor{KafeikGray}{rgb}{0.28,0.35,0.42}
+
+\setlength{\oddsidemargin}{-0.54cm}
+\setlength{\evensidemargin}{-0.54cm}
+\setlength{\textwidth}{17cm}
+\setlength{\topmargin}{-0.35cm}
+\setlength{\headheight}{30pt}
+\setlength{\headsep}{16pt}
+\setlength{\textheight}{24cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+\renewcommand{\arraystretch}{1.25}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=KafeikNavy,
+  urlcolor=KafeikAmber,
+  citecolor=KafeikNavy
+}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\tablaajustada}{\small}
+\newcommand{\studentname}{ }
+\newcommand{\degree}{}
+
+\newcommand{\projectname}{ Memoria del proyecto}
+\newif\ifKafeikAfterHeading
+\KafeikAfterHeadingfalse
+\newcommand{\KafeikHeadingBreak}{%
+  \ifKafeikAfterHeading\else\clearpage\fi
+  \global\KafeikAfterHeadingtrue}
+\everypar{\global\KafeikAfterHeadingfalse}
+
+\makeatletter
+\def\ps@KafeikStyle{%
+  \let\@oddfoot\@empty
+  \let\@evenfoot\@empty
+  \def\@oddhead{\vbox to 30pt{%
+    \hbox to \textwidth{\raisebox{-2pt}{\includegraphics[height=20pt]{cabecera_pagina.png}}\hfil
+      \small\color{KafeikGray}\studentname\quad
+      {\color{KafeikAmber}\textbar}\quad\degree\quad
+      {\color{KafeikAmber}\textbar}\quad\projectname}%
+    \vskip 6pt\hbox to \textwidth{\color{KafeikAmber}\hrulefill}}}
+  \let\@evenhead\@oddhead
+  \def\@oddfoot{\hbox to \textwidth{\small\color{KafeikGray}%
+    \includegraphics[height=13pt]{pie_de_pagina.png}\hfil
+    Página \thepage\ de \pageref{LastPage}\hfil}}
+  \let\@evenfoot\@oddfoot
+  \let\@mkboth\markboth
+}
+\let\ps@plain\ps@KafeikStyle
+\makeatother
+\pagestyle{KafeikStyle}
+
+\makeatletter
+\renewcommand{\@makechapterhead}[1]{%
+  \vspace*{18pt}{\parindent\z@\raggedright
+  \normalfont\huge\bfseries\color{KafeikNavy}
+  \thechapter.\quad #1\par\nobreak
+  \vskip 12pt{\color{KafeikAmber}\hrule height 1.2pt}\vskip 18pt
+  \global\KafeikAfterHeadingtrue}}
+\renewcommand{\@makeschapterhead}[1]{%
+  \vspace*{18pt}{\parindent\z@\raggedright
+  \normalfont\huge\bfseries\color{KafeikNavy}
+  #1\par\nobreak\vskip 12pt{\color{KafeikAmber}\hrule height 1.2pt}\vskip 18pt
+  \global\KafeikAfterHeadingtrue}}
+\renewcommand{\section}{\KafeikHeadingBreak\@startsection{section}{1}{0pt}{14pt}{6pt}
+  {\large\bfseries\color{KafeikNavy}}}
+\renewcommand{\subsection}{\KafeikHeadingBreak\@startsection{subsection}{2}{0pt}{10pt}{4pt}
+  {\normalsize\bfseries\color{KafeikAmber}}}
+\renewcommand{\subsubsection}{\KafeikHeadingBreak\@startsection{subsubsection}{3}{0pt}{8pt}{3pt}
+  {\small\bfseries\color{KafeikNavy}}}
+\makeatother
+
+\AtEndDocument{\label{LastPage}}

@@ -1,0 +1,54 @@
+\chapter{Marco de requisitos ampliado}
+
+La definición de requisitos es la base de todo proyecto, estableciendo el alcance, los criterios de calidad y los criterios de aceptación que guían el proceso de desarrollo. Se dividen en Requisitos Funcionales, que describen el comportamiento específico del sistema, y Requisitos No Funcionales, que determinan los estándares de rendimiento, seguridad y usabilidad. Además, se establecen reglas de negocio que dictan las restricciones clave del sistema y criterios de aceptación.
+
+\section{Requisitos}
+\tablaajustada
+\begin{longtable}{p{2.8cm}p{1.1cm}p{4.1cm}p{7cm}}
+\hline
+\textbf{Tipo} & \textbf{Código} & \textbf{Nombre / categoría} & \textbf{Descripción}\\
+\hline
+\endhead
+Requisito Funcional & RF01 & Registro de usuario & El sistema debe permitir el alta de nuevos usuarios capturando sus credenciales (usuario, correo electrónico y contraseña).\\
+Requisito Funcional & RF02 & Encuesta de preferencias & Durante el alta, el sistema debe solicitar una encuesta sobre necesidades, presupuesto máximo por 100 g, perfil de sabor, tipo de tueste y origen.\\
+Requisito Funcional & RF03 & Inicio de sesión & El usuario debe poder iniciar sesión.\\
+Requisito Funcional & RF04 & Cierre de sesión & El usuario debe poder cerrar sesión.\\
+Requisito Funcional & RF05 & Carga y actualización dinámica del catálogo & El sistema debe permitir la carga inicial masiva de datos desde el dataset de origen, así como la actualización y consulta en tiempo real del catálogo.\\
+Requisito Funcional & RF06 & Procesado inicial del dataset & El sistema debe procesar el dataset de Kaggle eliminando palabras innecesarias y vectorizando mediante TF-IDF.\\
+Requisito Funcional & RF07 & Gestión de perfil & El sistema debe almacenar un perfil de preferencias para cada usuario, generado inicialmente a partir de la encuesta y actualizado tras cada compra.\\
+Requisito Funcional & RF08 & Visualización de catálogo & El sistema debe mostrar la lista de granos disponibles con fotografías y descripciones detalladas.\\
+Requisito Funcional & RF09 & Búsqueda de café & El sistema debe incluir un buscador general por texto libre (nombre, notas de cata, etc.).\\
+Requisito Funcional & RF10 & Filtrado por origen & El sistema debe permitir filtrar por país o región de origen, seleccionando primero el país y opcionalmente la región.\\
+Requisito Funcional & RF11 & Recomendaciones para anónimos & Al abrir la aplicación sin sesión iniciada, debe mostrarse una sección con los cafés más vendidos.\\
+Requisito Funcional & RF12 & Estadísticas de compras & El sistema debe registrar y mantener el número total de unidades de 100 g vendidas de cada café.\\
+Requisito Funcional & RF13 & Recomendaciones personalizadas & Con sesión iniciada, deben mostrarse los 10 granos más cercanos al historial de compra mediante distancia coseno.\\
+Requisito Funcional & RF14 & Registro de compras & El sistema debe guardar cada transacción para alimentar el historial de compra.\\
+Requisito Funcional & RF15 & Recomendación por historial & El perfil se actualizará combinando las características de los productos del historial y calculando su representación TF-IDF; después se calculará la similitud coseno con el catálogo.\\
+Requisito Funcional & RF16 & Procesamiento de transacciones & El usuario debe poder efectuar el pago y finalizar la compra desde la aplicación.\\
+Requisito Funcional & RF17 & Dirección válida de entrega & El usuario debe introducir una dirección válida antes de finalizar el pago.\\
+Requisito Funcional & RF18 & Autenticación y cierre de sesión & Consumidores y empresas deben iniciar y cerrar sesión mediante credenciales seguras, gestionando tokens de sesión o JWT.\\
+Requisito Funcional & RF19 & Alta, baja y modificación de productos & Las empresas deben poder gestionar sus cafés indicando nombre, tueste, descripción, origen y precio por 100 g.\\
+Requisito Funcional & RF20 & Procesado de datos de empresas & El sistema debe procesar los nuevos productos como el dataset y añadirlos al catálogo.\\
+Requisito Funcional & RF21 & Modificación de encuesta & El usuario debe poder modificar sus respuestas de preferencias.\\
+Requisito Funcional & RF22 & Gestión de pedidos por empresas & El sistema debe proporcionar a la empresa la información necesaria para preparar y enviar sus pedidos.\\
+Requisito No Funcional & RNF01 & Usabilidad e interfaz & La interfaz móvil/web debe priorizar el contenido visual y facilitar el acceso a filtros y buscador en pocos clics.\\
+Requisito No Funcional & RNF02 & Motor de recomendación & El algoritmo debe aplicar filtrado basado en contenidos, emparejando atributos del dataset con las preferencias del perfil.\\
+Requisito No Funcional & RNF03 & Integración de datos & El sistema debe cargar, procesar y enriquecer datos a partir del dataset externo de Kaggle.\\
+Requisito No Funcional & RNF04 & Seguridad en transacciones & La transacción debe realizarse cifrada mediante HTTPS/TLS y pasarelas de pago estándar.\\
+Requisito No Funcional & RNF05 & Rendimiento & Las sugerencias de inicio deben calcularse y cargarse sin penalizar el arranque.\\
+Regla de Negocio & RN01 & Restricción de compra & Solo los usuarios registrados y autenticados pueden comprar y pagar productos.\\
+Regla de Negocio & RN02 & Encuesta obligatoria & Todo nuevo usuario debe completar la encuesta como parte del registro.\\
+Regla de Negocio & RN03 & Usuario sin historial & Sin compras, las recomendaciones se generarán exclusivamente a partir de la encuesta.\\
+Regla de Negocio & RN04 & Responsabilidad del producto & La empresa que publica el producto gestiona su preparación y envío; el sistema no gestiona la logística.\\
+Criterio de Aceptación & CA01 & Registro de usuarios & Se pueden registrar y autenticar usuarios, obligándolos a completar la encuesta.\\
+Criterio de Aceptación & CA02 & Procesamiento del dataset & Se procesan los productos de origen y los publicados por empresas, incluida su vectorización TF-IDF.\\
+Criterio de Aceptación & CA03 & Búsqueda de café & Se consulta el catálogo, se busca por texto y se filtra por país y región.\\
+Criterio de Aceptación & CA04 & Estadísticas de compra & Se registran compras y unidades equivalentes a 100 g vendidas por café.\\
+Criterio de Aceptación & CA05 & Recomendaciones según sesión & Los usuarios no autenticados ven los más vendidos y los autenticados reciben recomendaciones personalizadas.\\
+Criterio de Aceptación & CA06 & Recomendaciones personalizadas & Se muestran los 10 productos con mayor similitud coseno.\\
+Criterio de Aceptación & CA07 & Seguimiento de preferencias & El perfil se genera con la encuesta y se actualiza con compras y modificaciones posteriores.\\
+Criterio de Aceptación & CA08 & Realización de pago & Los usuarios autenticados pueden completar el pago y registrar la transacción.\\
+Criterio de Aceptación & CA09 & Gestión de productos & Las empresas gestionan sus productos y se conservan las compras históricas de los dados de baja.\\
+Criterio de Aceptación & CA10 & Seguridad en el pago & Las operaciones autenticadas y económicas usan mecanismos de acceso y comunicación seguros.\\
+\hline
+\end{longtable}

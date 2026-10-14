@@ -1,0 +1,146 @@
+\chapter{Artefactos de análisis}
+
+Para entender las necesidades de los usuarios y definir la interacción con la plataforma se emplean Historias de Usuario y Casos de Uso. Las Historias de Usuario se centran en los deseos de los usuarios finales y sus expectativas, mientras que los Casos de Uso describen las funcionalidades de la aplicación junto con sus flujos de acción.
+
+\section{Historias de usuario}
+\subsection{Usuario}
+\begin{longtable}{p{1.5cm}p{14.5cm}}
+\hline\textbf{Código}&\textbf{Historia}\\\hline
+HU01&Como usuario quiero filtrar el café por origen.\\
+HU02&Como usuario quiero un buscador de granos de café.\\
+HU03&Como usuario quiero un recomendador basado en el historial de compra.\\
+HU04&Como usuario quiero ver fotografías, precios y descripciones de los productos ofertados.\\
+HU05&Como usuario quiero identificarme con usuario y contraseña.\\
+HU06&Como usuario quiero efectuar desde la aplicación la transacción económica de la compra de café.\\
+HU07&Como usuario quiero ver recomendaciones personalizadas al abrir la aplicación.\\
+\hline
+\end{longtable}
+
+\subsection{Administrador}
+\begin{longtable}{p{1.5cm}p{14.5cm}}
+\hline\textbf{Código}&\textbf{Historia}\\\hline
+HU08&Como administrador, quiero acceder a un panel de control con el volumen de ventas y el número de registros activos para monitorizar el rendimiento de la plataforma.\\
+HU09&Como administrador, quiero suspender temporalmente la cuenta de una empresa o usuario si detecto actividad fraudulenta, para proteger la seguridad de la comunidad.\\
+HU10&Como administrador, quiero gestionar (aprobar o rechazar) las solicitudes de registro de nuevas empresas tostadoras para asegurar que cumplen nuestros estándares de calidad.\\
+\hline
+\end{longtable}
+
+\subsection{Empresa}
+\begin{longtable}{p{1.5cm}p{14.5cm}}
+\hline\textbf{Código}&\textbf{Historia}\\\hline
+HU11&Como empresa quiero ofertar café a clientes.\\
+HU12&Como empresa quiero poder dar de alta mis cafés.\\
+HU13&Como empresa quiero poder dar de baja mis cafés.\\
+\hline
+\end{longtable}
+
+\section{Casos de uso}
+\begin{longtable}{p{2cm}p{14cm}}
+\hline\textbf{Código}&\textbf{Caso de uso}\\\hline
+CU01&Registrarse en la aplicación.\\
+CU02&Consultar recomendaciones personalizadas en el inicio.\\
+CU03&Filtrar y buscar productos en el catálogo.\\
+CU04&Efectuar transacción económica de compra de café.\\
+CU05&Gestionar catálogo de productos.\\
+CU06&Iniciar sesión.\\
+CU07&Cubrir encuesta.\\
+CU08&Generar recomendaciones para usuarios anónimos o de inicio frío.\\
+CU09&Modificar o actualizar perfil de preferencias.\\
+CU10&Gestionar carrito de compras.\\
+CU11&Cerrar sesión.\\
+CU12&Consultar panel de control del administrador.\\
+CU13&Suspender cuenta de usuario o empresa.\\
+CU14&Gestionar solicitudes de registro de empresas.\\
+\hline
+\end{longtable}
+
+\section{Precondiciones y postcondiciones}
+\begin{longtable}{p{4.2cm}p{5.1cm}p{5.1cm}}
+\hline\textbf{Caso de uso}&\textbf{Precondición}&\textbf{Postcondición}\\\hline
+CU01&El usuario no ha iniciado sesión.&Queda registrado con credenciales activas y perfil inicial.\\
+CU02&Sesión iniciada y encuesta completada o historial disponible.&Se presenta una lista adaptada al perfil.\\
+CU03&El usuario está en la vista de catálogo o búsqueda.&Se muestran los productos que cumplen los criterios.\\
+CU04&Sesión iniciada y al menos un producto en el carrito.&Se procesa la transacción, se actualiza el historial y se envía el pedido.\\
+CU05&Empresa validada y con sesión iniciada.&El catálogo se actualiza en tiempo real.\\
+CU06&El actor dispone de una cuenta.&Queda autenticado según su rol.\\
+CU07&El usuario no ha completado la encuesta.&Se crea el perfil inicial.\\
+CU08&La sesión no está autenticada.&Se muestran cafés populares sin autenticación.\\
+CU09&Cuenta activa y sesión iniciada.&Se actualiza el perfil y las sugerencias futuras.\\
+CU10&Navegación activa en catálogo o ficha de producto.&El carrito almacena productos y cantidades.\\
+CU11&Existe una sesión autenticada.&La sesión se destruye y se vuelve al estado no autenticado.\\
+CU12&El administrador ha iniciado sesión.&Visualiza el estado y rendimiento de la plataforma.\\
+CU13&Administrador autenticado y cuenta localizada.&La cuenta queda bloqueada.\\
+CU14&Administrador autenticado y solicitudes pendientes.&La empresa se habilita o se desestima su solicitud.\\
+\hline
+\end{longtable}
+
+\section{Actores}
+\begin{longtable}{p{9cm}p{6cm}}
+\hline\textbf{Caso de uso}&\textbf{Actor}\\\hline
+CU01: Registrarse en la aplicación&Usuario no registrado\\
+CU02: Consultar recomendaciones personalizadas&Usuario registrado / Sistema\\
+CU03: Filtrar y buscar productos&Usuario registrado o no registrado\\
+CU04: Efectuar compra&Usuario registrado\\
+CU05: Gestionar catálogo&Empresa\\
+CU06: Iniciar sesión&Usuario registrado / Empresa / Administrador\\
+CU07: Cubrir encuesta&Usuario no registrado\\
+CU08: Recomendaciones para anónimos&Usuario no registrado / Anónimo\\
+CU09: Actualizar perfil&Usuario registrado\\
+CU10: Gestionar carrito&Usuario registrado / Anónimo\\
+CU11: Cerrar sesión&Usuario registrado / Empresa / Administrador\\
+CU12: Consultar panel&Administrador\\
+CU13: Suspender cuenta&Administrador\\
+CU14: Gestionar solicitudes&Administrador\\
+\hline
+\end{longtable}
+
+\section{Workflows}
+
+Los flujos de trabajo definen la secuencia de pasos que sigue el usuario para completar una tarea relacionada con un Caso de Uso. Detallan las rutas principales de navegación, las respuestas del sistema y el manejo de excepciones.
+
+\begin{longtable}{p{3cm}p{7.1cm}p{5.3cm}}
+\hline\textbf{Caso}&\textbf{Flujo principal}&\textbf{Alternativas / excepciones}\\\hline
+CU01&1. Seleccionar ``Registrarse. 2. Mostrar formulario. 3. Completar datos. 4. Validar credenciales. 5. Almacenar credenciales. 6. Invocar CU07. 7. Activar perfil e iniciar sesión.&Credenciales duplicadas: mostrar error. Encuesta incompleta: bloquear avance (RN02).\\
+CU02&1. Abrir la aplicación. 2. Detectar sesión. 3. Invocar el motor de recomendación con encuesta e historial TF-IDF. 4. Calcular similitud coseno. 5. Mostrar recomendaciones.&Sin sesión: invocar CU08. Sin encuesta: mostrar cafés mejor valorados e invitar a completarla.\\
+CU03&1. Introducir texto o filtros. 2. Confirmar. 3. Validar parámetros. 4. Consultar por descripción, notas u origen. 5. Mostrar coincidencias.&Sin coincidencias: notificarlo y sugerir relajar filtros.\\
+CU04&1. Abrir carrito. 2. Verificar autenticación. 3. Solicitar pago y dirección. 4. Confirmar importe. 5. Enviar cobro. 6. Autorizar. 7. Guardar orden e historial. 8. Mostrar comprobante.&Usuario anónimo: detener y redirigir a login. Pago rechazado: mantener carrito y permitir reintento.\\
+CU05&1. Acceder al panel. 2. Elegir alta, modificación o baja. 3. Completar datos y fotos. 4. Guardar. 5. Validar. 6. Procesar y vectorizar descripción y actualizar catálogo.&Campos vacíos o formatos erróneos: resaltar el campo y detener el guardado.\\
+CU06&1. Acceder a login. 2. Solicitar credenciales. 3. Introducirlas. 4. Comprobar BD. 5. Generar JWT e iniciar sesión.&Campos incompletos o credenciales inválidas: mostrar error y solicitar reintento.\\
+CU07&1. Presentar encuesta. 2. Responder y guardar. 3. Registrar respuestas y generar vector inicial.&Campos incompletos: bloquear el avance (RN02).\\
+CU08&1. Acceder a portada sin sesión. 2. Detectar anonimato. 3. Recuperar los 10 más vendidos o mejor valorados. 4. Mostrar carrusel. 5. Invitar a registrarse.&Error de catálogo: notificar y usar datos en caché.\\
+CU09&1. Abrir ``Mi perfil. 2. Recuperar respuestas. 3. Modificar y guardar. 4. Validar. 5. Recalcular vector.&Datos erróneos: resaltar campos y detener actualización.\\
+CU10&1. Añadir producto. 2. Actualizar contador. 3. Abrir carrito. 4. Ajustar o eliminar artículos. 5. Recalcular totales. 6. Proceder al pago.&Sin stock: avisar y desactivar botón. Carrito vacío: deshabilitar compra.\\
+CU11&1. Pulsar ``Cerrar sesión. 2. Revocar JWT. 3. Redirigir al inicio anónimo.&Error de red: eliminar credenciales locales y forzar salida.\\
+CU12&1. Acceder a administración. 2. Calcular ventas y usuarios activos. 3. Mostrar indicadores.&Error de métricas: notificar y habilitar reintento.\\
+CU13&1. Listar cuentas. 2. Seleccionar objetivo. 3. Pulsar ``Suspender. 4. Introducir motivo. 5. Confirmar. 6. Cambiar estado e inhabilitar acceso.&Cancelación: conservar el estado activo.\\
+CU14&1. Abrir solicitudes. 2. Revisar datos. 3. Aprobar o rechazar. 4. Actualizar BD. 5. Notificar por correo.&Documentación incompleta: marcar pendiente de corrección y añadir observaciones.\\
+\hline
+\end{longtable}
+
+\section{Glosario}
+
+Los términos definidos constituyen el lenguaje unificado (\emph{Ubiquitous Language}) del proyecto y garantizan la consistencia terminológica entre requisitos, artefactos de análisis y módulos del sistema.
+
+\begin{longtable}{p{4.3cm}p{4.2cm}p{6.3cm}}
+\hline\textbf{Acción}&\textbf{Actor asociado}&\textbf{Funcionalidad / caso de uso}\\\hline
+Filtrar (origen y tueste)&Usuario registrado o no registrado&Búsqueda avanzada del catálogo (CU03 / RF10 / HU01).\\
+Buscar&Usuario registrado o no registrado&Búsqueda por texto libre (CU03 / RF09 / HU02).\\
+Recomendar / mostrar recomendaciones&Sistema&Sugerencias con TF-IDF y similitud coseno (CU02 / RF13 / RF15 / HU03 / HU07).\\
+Ofertar catálogo de café&Empresa&Exposición pública de granos (CU05 / RF08 / HU11).\\
+Identificarse (autenticarse)&Usuario, empresa o administrador&Inicio seguro con credenciales y JWT (CU06 / RF03 / RF18 / HU05).\\
+Cerrar sesión&Usuario, empresa o administrador&Invalidación del JWT (CU11 / RF04 / RF18).\\
+Efectuar transacción / comprar&Usuario registrado&Pago seguro y registro de transacción (CU04 / RF16 / RF17 / HU06).\\
+Registrarse / cubrir encuesta&Usuario no registrado&Alta y encuesta obligatoria (CU01 / CU07 / RF01 / RF02 / RN02).\\
+Modificar encuesta / perfil&Usuario registrado&Edición y recálculo de recomendaciones (CU09 / RF21).\\
+Gestionar carrito&Usuario registrado o anónimo&Adición, modificación y eliminación antes del pago (CU10).\\
+Restringir compra&Sistema / regla de negocio&Validación de sesión antes del pago (RN01).\\
+Mostrar fotografías y descripciones&Sistema&Ficha de producto con fotos, notas, tueste y rating (CU03 / RF08 / HU04).\\
+Mostrar cafés más vendidos&Sistema&Recomendaciones para no autenticados (CU08 / RF11).\\
+Gestionar catálogo&Empresa&Alta, baja y modificación de inventario (CU05 / RF19 / HU12 / HU13).\\
+Gestionar pedidos&Empresa&Consulta de pedidos para preparación y envío (RF22 / RN04).\\
+Consultar panel de control&Administrador&Métricas globales (CU12 / HU08).\\
+Suspender cuenta&Administrador&Inhabilitación temporal (CU13 / HU09).\\
+Gestionar solicitudes&Administrador&Aprobación o rechazo de empresas (CU14 / HU10).\\
+Procesar dataset y vectorizar&Sistema&Limpieza y vectorización TF-IDF (RF05 / RF06 / RF20).\\
+\hline
+\end{longtable}
