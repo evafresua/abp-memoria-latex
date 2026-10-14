@@ -56,10 +56,11 @@
 \def\ps@KafeikStyle{%
   \let\@oddfoot\@empty
   \let\@evenfoot\@empty
-  \def\@oddhead{\includegraphics[height=20pt]{cabecera_pagina.png}}
+  \def\@oddhead{\hbox to \textwidth{\hfil
+    \includegraphics[height=20pt]{cabecera_pagina.png}\hfil}}
   \let\@evenhead\@oddhead
-  \def\@oddfoot{\hbox to \textwidth{\small\color{KafeikGray}%
-    \includegraphics[height=13pt]{pie_de_pagina.png}\hfil
+  \def\@oddfoot{\hbox to \textwidth{\hfil\small\color{KafeikGray}%
+    \includegraphics[height=13pt]{pie_de_pagina.png}\quad
     Página \thepage\ de \pageref{LastPage}\hfil}}
   \let\@evenfoot\@oddfoot
   \let\@mkboth\markboth
